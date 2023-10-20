@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * handle_exit_status - Handles the exit status for a command
- * @custom_status:  status to check
- * @cmd_args: command arguments
- * @token: pointer to dynamically allocated memory
- * @exit_status: pointer to an int to hold the exit status value
+ * handle_exit_status - Handles exit status for a command.
+ * @custom_status:  Status to handle.
+ * @cmd_args: Command arguments.
+ * @token: Pointer to dynamically allocated memory.
+ * @exit_status: Pointer to integer to hold the exit status value.
  *
- * Return: void.
+ * Return: Void.
  */
 void handle_exit_status(int custom_status, char **cmd_args, char **token,
 		int *exit_status)
@@ -28,13 +28,13 @@ void handle_exit_status(int custom_status, char **cmd_args, char **token,
 }
 
 /**
- * handle_custom_exit - Handles  exit statuses for a command
- * @custom_status:  exit status to check
- * @cmd_args: array containing the command and its arguments
- * @input_line:  pointer to the input line
- * @exit_status:  pointer to an int to hold the return exit status value
+ * handle_custom_exit - Handles  exit statuses for a command.
+ * @custom_status:  Exit status to handle.
+ * @cmd_args: Command and its arguments.
+ * @input_line:  Pointer to input line.
+ * @exit_status: Pointer to integer to hold the return exit status value.
  *
- * Return: void.
+ * Return: Void.
  */
 void handle_custom_exit(int custom_status, char **cmd_args,
 		char *input_line, int *exit_status)
@@ -55,10 +55,10 @@ void handle_custom_exit(int custom_status, char **cmd_args,
 }
 
 /**
- * handle_getline_error - Handles getline error
- * @input_line: pointer to the input line.
+ * handle_getline_error - Handles getline error.
+ * @input_line: Pointer to input line.
  *
- * Return: void.
+ * Return: Void.
  */
 void handle_getline_error(char *input_line)
 {

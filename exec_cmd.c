@@ -1,13 +1,12 @@
 #include "shell.h"
 
 /**
- * execute_command - execute a shell cmd
- * and its arguments by searching in PATH
- * @cmd_args: the cmd and its arguments as an array of strings
- * @env_vars: the environment var
- * @exit_status: the pointer to an int where the exit status will be stored
- * @argv: the program argument
- * @index: the execution count
+ * execute_command - Executes a shell command and its arguments.
+ * @cmd_args: The command and its arguments.
+ * @env_vars: The environment variables.
+ * @exit_status: Pointer to integer where the exit status will be stored
+ * @argv: Argument vetor.
+ * @index: Execution count.
  */
 void execute_command(char **cmd_args, char **env_vars
 		, int *exit_status, char **argv, int index)
@@ -51,12 +50,11 @@ void execute_command(char **cmd_args, char **env_vars
 }
 
 /**
- * search_path - look for the full path of a command
- * in the PATH environment variable
- * @command:command to search for
- * @cmd_path: A Pointer to store the full path of the command
+ * search_path - Looks for the full path of a command.
+ * @command: Command.
+ * @cmd_path: Pointer to store the full path of the command.
  *
- * Return: 1 (success), 0 (failure)
+ * Return: 1 or 0 on success or  failure respectively.
  */
 int search_path(char *command, char **cmd_path)
 {
@@ -101,10 +99,10 @@ int search_path(char *command, char **cmd_path)
 }
 
 /**
- * wait_child_process - waits for a child process to end
- * and gets its exit status
- * @exit_status: A  Pointer to the exit status
- * variable to store the exit status
+ * wait_child_process - Waits for a child process to end 
+ * then gets its exit status.
+ * @exit_status: Pointer to the exit status
+ * variable that stores the exit status
  */
 void wait_child_process(int *exit_status)
 {
@@ -123,11 +121,11 @@ void wait_child_process(int *exit_status)
 }
 
 /**
- * mygetenv - looks for an environment var
- * @var_name: name of the environment var to look for
+ * mygetenv - Searches for an environment variable.
+ * @var_name: Name of the environment variable.
  *
- * Return: A Pointer to the value of the environment variable,
- * or NULL if not found
+ * Return: Pointer to the value of the environment variable,
+ * otherwise, NULL.
  */
 char *mygetenv(const char *var_name)
 {
@@ -149,9 +147,9 @@ char *mygetenv(const char *var_name)
 }
 
 /**
- * print_env_var - Prints the environment variables to stdout
+ * print_env_var - Prints the environment variables to stdout.
  *
- * Return: void
+ * Return: Void.
  */
 void print_env_var(void)
 {
@@ -164,4 +162,3 @@ void print_env_var(void)
 		env++;
 	}
 }
-

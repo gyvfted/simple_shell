@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * main - Entry point for the shell program
- * @ac: The argument count
- * @argv: The argument param
- * Return: Returns (success), or status of the non_interactive_mode
+ * main - Entry point.
+ * @ac: Argument counter.
+ * @argv: Argument vector
+ * Return: Success, or status of the non_interactive_mode
  */
 int main(int ac, char **argv)
 {
@@ -31,11 +31,11 @@ int main(int ac, char **argv)
 }
 
 /**
- * non_interactive_mode - Executes shell commands in non_interactive_mode
- * @token: string containing commands separated by newline characters
- * @status: A Pointer to an integer to store the exit status
- * @argv: The argument param
- * Return: Returns exit status.
+ * non_interactive_mode - Executes commands in non_interactive_mode
+ * @token: String with commands separated by newline characters
+ * @status: Pointer to integer that stores the exit status.
+ * @argv: Argument vector.
+ * Return: Exit status.
  */
 void non_interactive_mode(char *token, int *status, char **argv)
 {
@@ -73,11 +73,11 @@ void non_interactive_mode(char *token, int *status, char **argv)
 }
 
 /**
- * tokenize_string - splits the string into tokens.
- * @str: the string to tokenize.
- * @delimiters: the delimiters to use for tokenization
+ * tokenize_string - Splits the string into tokens.
+ * @str: String to tokenise.
+ * @delimiters: Delimiters used for tokenisation.
  *
- * Return: Returns result.
+ * Return: Result.
  */
 char **tokenize_string(char *str, char *delimiters)
 {

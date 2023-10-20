@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * begin_shell - Starts the shell main loop
- * @argv: program argument
- * Description: Initializes the shell, handles user input,
- * tokenizes commands and executes them
+ * begin_shell - Begins shell main loop.
+ * @argv: Arguments vector.
+ * Description: Initialises the shell, handles user input,
+ * tokenises and executes commands.
  */
 void begin_shell(char **argv)
 {
@@ -51,11 +51,11 @@ void begin_shell(char **argv)
 }
 
 /**
- * read_command - Reads a line of command from the user
- * @line: line buffer to store the command
- * @line_size: size of the line buffer
+ * read_command - Reads a line of command.
+ * @line: Buffer to store the command.
+ * @line_size: Size of buffer.
  *
- * Return: the number of characters read.
+ * Return: Number of characters.
  */
 ssize_t read_command(char **line, size_t *line_size)
 {
@@ -64,11 +64,11 @@ ssize_t read_command(char **line, size_t *line_size)
 }
 
 /**
- * write_error - Writes an error message to STDERR
- * @index: The execution count
- * @name: The error name
- * @command: The command
- * Description: Writes an error message.
+ * write_error - Writes error message to STDERR.
+ * @index: Execution counter.
+ * @name: Error name.
+ * @command: Command.
+ * Description: Writes error message.
  */
 void write_error(char *name, char *command, int index)
 {
@@ -86,10 +86,10 @@ void write_error(char *name, char *command, int index)
 }
 
 /**
- * write_exit_error - Writes an error message to STDERR.
+ * write_exit_error - Writes exit error message to STDERR.
  *
- * @number: The number.
- * Description: Writes an error message.
+ * @number: Number.
+ * Description: Writes exit error message.
  */
 void write_exit_error(char *number)
 {
@@ -99,8 +99,8 @@ void write_exit_error(char *number)
 }
 
 /**
- * free_array - Frees memory allocated for an array of strings
- * @array: A pointer to the dynamically allocated array of strings
+ * free_array - Frees memory allocated for array of strings.
+ * @array: Pointer to dynamically allocated array of strings.
  */
 void free_array(char **array)
 {
