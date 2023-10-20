@@ -1,11 +1,18 @@
 #include "shell.h"
 
 /**
+<<<<<<< HEAD
  * begin_shell - Starts the shell's main loop
  *
  * Description: Initializes the shell, handles user input,
  * tokenizes cmds and executes them.
  * Return: Void
+=======
+ * begin_shell - Begins shell main loop.
+ * @argv: Arguments vector.
+ * Description: Initialises the shell, handles user input,
+ * tokenises and executes commands.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 void begin_shell(void)
 {
@@ -53,11 +60,19 @@ void begin_shell(void)
 
 
 /**
+<<<<<<< HEAD
  * read_command - Reads a line of command from the user
  * @line: Line buffer to be stored command
  * @size_line: Size of line buffer
  *
  * Return: The number of char to read.
+=======
+ * read_command - Reads a line of command.
+ * @line: Buffer to store the command.
+ * @line_size: Size of buffer.
+ *
+ * Return: Number of characters.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 ssize_t read_command(char **line, size_t *size_line)
 {
@@ -65,10 +80,18 @@ ssize_t read_command(char **line, size_t *size_line)
 	return (getline(line, size_line, stdin));
 }
 /**
+<<<<<<< HEAD
  * write_error - Writes an error message to STDERR
  *
  * @command: The command
  * Description: Writes an error message
+=======
+ * write_error - Writes error message to STDERR.
+ * @index: Execution counter.
+ * @name: Error name.
+ * @command: Command.
+ * Description: Writes error message.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 void write_error(char *command)
 {
@@ -77,10 +100,17 @@ void write_error(char *command)
 	write(STDERR_FILENO, ": not found\n", 12);
 }
 /**
+<<<<<<< HEAD
  * write_exit_error - Writes an error message to STDERR
  *
  * @number: The number
  * Description: Writes an error message
+=======
+ * write_exit_error - Writes exit error message to STDERR.
+ *
+ * @number: Number.
+ * Description: Writes exit error message.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 void write_exit_error(char *number)
 {
@@ -89,8 +119,13 @@ void write_exit_error(char *number)
 	write(STDERR_FILENO, "\n", 1);
 }
 /**
+<<<<<<< HEAD
  * free_array - Frees memory allocated for an array of strings
  * @array: Pointer to the allocated array of strings
+=======
+ * free_array - Frees memory allocated for array of strings.
+ * @array: Pointer to dynamically allocated array of strings.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 void free_array(char **array)
 {

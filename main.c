@@ -1,9 +1,16 @@
 #include "shell.h"
 
 /**
+<<<<<<< HEAD
  * main - Entry point for the shell program
  *
  * Return: 0 (success)
+=======
+ * main - Entry point.
+ * @ac: Argument counter.
+ * @argv: Argument vector
+ * Return: Success, or status of the non_interactive_mode
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 int main(void)
 {
@@ -28,10 +35,18 @@ int main(void)
 	return (0);
 }
 /**
+<<<<<<< HEAD
  * non_interactive_mode - executes shell commands in non_nteractive_mode
  * @token: string containing commands
  * @status: integer to store the number
  * Return: Status
+=======
+ * non_interactive_mode - Executes commands in non_interactive_mode
+ * @token: String with commands separated by newline characters
+ * @status: Pointer to integer that stores the exit status.
+ * @argv: Argument vector.
+ * Return: Exit status.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 void non_interactive_mode(char *token, int *status)
 {
@@ -69,11 +84,19 @@ void non_interactive_mode(char *token, int *status)
 }
 
 /**
+<<<<<<< HEAD
  * tokenize_string - Splits a string into diff tokens
  * @str: The string to tokenize
  * @delimiters: The delimiters to use for tokenization
  *
  * Return: Result
+=======
+ * tokenize_string - Splits the string into tokens.
+ * @str: String to tokenise.
+ * @delimiters: Delimiters used for tokenisation.
+ *
+ * Return: Result.
+>>>>>>> 253920377c0a84ae9d178c302096056c7c92ef18
  */
 char **tokenize_string(char *str, char *delimiters)
 {
