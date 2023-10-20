@@ -2,22 +2,20 @@
 
 /**
  * main - Entry point for the shell program
- * @ac: The argument count
- * @argv: The argument param
- * Return: Returns (success), or status of the non_interactive_mode
+ *
+ * Return: 0 (success)
  */
-int main(int ac, char **argv)
+int main(void)
 {
 	size_t size_line = 0;
 	char *line = NULL;
 	int status = 0;
-	(void) ac;
 
 	if (!isatty(0))
 	{
 		while (getline(&line, &size_line, stdin) != -1)
 		{
-			non_interactive_mode(line, &status, argv);
+			non_interactive_mode(line, &status);
 		}
 		if (line)
 		{
@@ -26,18 +24,16 @@ int main(int ac, char **argv)
 		}
 		return (status);
 	}
-	begin_shell(argv);
+	begin_shell();
 	return (0);
 }
-
 /**
- * non_interactive_mode - Executes shell commands in non_interactive_mode
- * @token: string containing commands separated by newline characters
- * @status: A Pointer to an integer to store the exit status
- * @argv: The argument param
- * Return: Returns exit status.
+ * non_interactive_mode - executes shell commands in non_nteractive_mode
+ * @token: string containing commands
+ * @status: integer to store the number
+ * Return: Status
  */
-void non_interactive_mode(char *token, int *status, char **argv)
+void non_interactive_mode(char *token, int *status)
 {
 	char **single_command;
 	char *envp[] = {NULL};
@@ -50,9 +46,9 @@ void non_interactive_mode(char *token, int *status, char **argv)
 		{
 			if (single_command[1])
 			{
-				int custom_status = _atoi(single_command[1]);
+				int my_status = _atoi(single_command[1]);
 
-				handle_exit_status(custom_status, single_command, &token, status);
+				handle_exit_status(my_status, single_command, &token, status);
 			}
 			else
 			{
@@ -63,21 +59,21 @@ void non_interactive_mode(char *token, int *status, char **argv)
 		}
 		else if (!_strcmp(single_command[0], "env"))
 		{
-			print_env_var();
+			print_env_variable();
 			*status = 0;
 		}
 		else
-			execute_command(single_command, envp, status, argv, 0);
+			execute_command(single_command, envp, status);
 	}
 	free_array(single_command);
 }
 
 /**
- * tokenize_string - splits the string into tokens.
- * @str: the string to tokenize.
- * @delimiters: the delimiters to use for tokenization
+ * tokenize_string - Splits a string into diff tokens
+ * @str: The string to tokenize
+ * @delimiters: The delimiters to use for tokenization
  *
- * Return: Returns result.
+ * Return: Result
  */
 char **tokenize_string(char *str, char *delimiters)
 {
@@ -105,3 +101,4 @@ char **tokenize_string(char *str, char *delimiters)
 
 	return (result);
 }
+

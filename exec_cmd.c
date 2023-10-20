@@ -1,69 +1,60 @@
 #include "shell.h"
 
 /**
- * execute_command - execute a shell cmd
- * and its arguments by searching in PATH
- * @cmd_args: the cmd and its arguments as an array of strings
- * @env_vars: the environment var
- * @exit_status: the pointer to an int where the exit status will be stored
- * @argv: the program argument
- * @index: the execution count
+ * execute_command - Execute shell command and
+ * its arguments by lookin in the PATH
+ * @commands: The command and its arguments as an array of strings
+ * @envp: The environment variables
+ * @status: The pointer to an int where the status will be stored
  */
-void execute_command(char **cmd_args, char **env_vars
-		, int *exit_status, char **argv, int index)
+void execute_command(char **commands, char **envp, int *status)
 {
-	char *cmd_path = NULL;
-	int child_pid;
+	char *full_path = NULL;
+	int pid;
 
-	if (access(cmd_args[0], X_OK) == 0)
+
+	if (access(commands[0], X_OK) == 0)
 	{
-		child_pid = fork();
+		pid = fork();
 
-		if (child_pid == 0)
-		{
-			execve(cmd_args[0], cmd_args, env_vars);
-		}
+		if (pid == 0)
+			execve(commands[0], commands, envp);
 		else
-		{
-			wait_child_process(exit_status);
-		}
+			wait_child_process(status);
 	}
-	else if (search_path(cmd_args[0], &cmd_path))
+	else if (find_path(commands[0], &full_path))
 	{
-		child_pid = fork();
+		pid = fork();
 
-		if (child_pid == 0)
-		{
-			execve(cmd_path, cmd_args, env_vars);
-		}
+		if (pid == 0)
+			execve(full_path, commands, envp);
 		else
-		{
-			wait_child_process(exit_status);
-		}
+			wait_child_process(status);
 
-		free(cmd_path);
+		free(full_path);
 	}
 	else
 	{
-		*exit_status = 127;
-		write_error(argv[0], cmd_args[0], index);
-	}
+		*status = 127;
+		write_error(commands[0]);
+	};
 }
 
 /**
- * search_path - look for the full path of a command
- * in the PATH environment variable
- * @command:command to search for
- * @cmd_path: A Pointer to store the full path of the command
+ * find_path - look for the full path of a command in the PATH env variable
+ * @command: The command to search for
+ * @full_path: search for complete path
  *
- * Return: 1 (success), 0 (failure)
+ * Return: 1(success) 0(failure)
  */
-int search_path(char *command, char **cmd_path)
+int find_path(char *command, char **full_path)
 {
 	char *token, *path_env;
 	int found = 0;
 
-	path_env = mygetenv("PATH");
+
+
+	path_env = getenv("PATH");
 
 	if (path_env != NULL)
 	{
@@ -73,22 +64,22 @@ int search_path(char *command, char **cmd_path)
 
 		while (token != NULL && !found)
 		{
-			*cmd_path = malloc(strlen(token) + strlen(command) + 2);
-			if (*cmd_path != NULL)
+			*full_path = malloc(strlen(token) + strlen(command) + 2);
+			if (*full_path != NULL)
 			{
-				strcpy(*cmd_path, token);
-				strcat(*cmd_path, "/");
-				strcat(*cmd_path, command);
+				strcpy(*full_path, token);
+				strcat(*full_path, "/");
+				strcat(*full_path, command);
 
-				if (access(*cmd_path, X_OK) == 0)
+
+				if (access(*full_path, X_OK) == 0)
 				{
+
 					found = 1;
 				}
 
 				if (!found)
-				{
-					free(*cmd_path);
-				}
+					free(*full_path);
 			}
 
 			token = strtok(NULL, ":");
@@ -101,12 +92,12 @@ int search_path(char *command, char **cmd_path)
 }
 
 /**
- * wait_child_process - waits for a child process to end
- * and gets its exit status
- * @exit_status: A  Pointer to the exit status
- * variable to store the exit status
+ * wait_child_process - Waits for a child proc to end and get its exit status
+ * @status: A Pointer to the status variable
+ *
+ * Return: void
  */
-void wait_child_process(int *exit_status)
+void wait_child_process(int *status)
 {
 	int child_status;
 
@@ -118,50 +109,46 @@ void wait_child_process(int *exit_status)
 
 	if (WIFEXITED(child_status))
 	{
-		*exit_status = WEXITSTATUS(child_status);
+		*status = WEXITSTATUS(child_status);
 	}
 }
-
 /**
- * mygetenv - looks for an environment var
- * @var_name: name of the environment var to look for
+ * getenv - Look for an environment variable and returns its value
+ * @path: name of the environment variable to search for
  *
- * Return: A Pointer to the value of the environment variable,
- * or NULL if not found
+ * Return: Pointer to value of the env var, or NULL
  */
-char *mygetenv(const char *var_name)
+char *getenv(const char *path)
 {
 	int i;
-	int name_length = _strlen((char *)var_name);
+	int path_length = _strlen((char *) path);
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		if (!strncmp(var_name, environ[i], name_length))
+		if (!strncmp(path, environ[i], path_length))
 		{
-			if (environ[i][name_length] == '=')
+			if (environ[i][path_length] == '=')
 			{
-				return (environ[i] + name_length + 1);
+				return (environ[i] + path_length + 1);
 			}
 		}
 	}
 
 	return (NULL);
 }
-
 /**
- * print_env_var - Prints the environment variables to stdout
+ * print_env_variable - Prints the environment variables to stdout
  *
  * Return: void
  */
-void print_env_var(void)
+void print_env_variable(void)
 {
 	char **env = environ;
 
 	while (*env != NULL)
 	{
-		write(STDOUT_FILENO, *env, _strlen(*env));
+		write(STDOUT_FILENO, *env, strlen(*env));
 		write(STDOUT_FILENO, "\n", 1);
 		env++;
 	}
 }
-

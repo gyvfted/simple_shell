@@ -1,21 +1,22 @@
 #include "shell.h"
 
 /**
- * begin_shell - Starts the shell main loop
- * @argv: program argument
+ * begin_shell - Starts the shell's main loop
+ *
  * Description: Initializes the shell, handles user input,
- * tokenizes commands and executes them
+ * tokenizes cmds and executes them.
+ * Return: Void
  */
-void begin_shell(char **argv)
+void begin_shell(void)
 {
 	char *line = NULL, **commands, *envp[] = {NULL};
-	size_t line_size = 0;
+	size_t size_line = 0;
 	ssize_t nread;
-	int status = 0, count = 0;
+	int status = 0;
 
-	while (++count)
+	while (1)
 	{
-		nread = read_command(&line, &line_size);
+		nread = read_command(&line, &size_line);
 		if (nread == -1)
 			handle_getline_error(line);
 		commands = tokenize_string(line, " \n\t");
@@ -25,9 +26,9 @@ void begin_shell(char **argv)
 			{
 				if (commands[1])
 				{
-					int custom_status = _atoi(commands[1]);
+					int my_status = _atoi(commands[1]);
 
-					handle_custom_exit(custom_status, commands, line, &status);
+					handle_custom_exit(my_status, commands, line, &status);
 				}
 				else
 				{
@@ -38,11 +39,11 @@ void begin_shell(char **argv)
 			}
 			else if (!_strcmp(commands[0], "env"))
 			{
-				print_env_var();
+				print_env_variable();
 				status = 0;
 			}
 			else
-				execute_command(commands, envp, &status, argv, count);
+				execute_command(commands, envp, &status);
 		}
 		free_array(commands);
 		free(line);
@@ -50,46 +51,36 @@ void begin_shell(char **argv)
 	}
 }
 
+
 /**
  * read_command - Reads a line of command from the user
- * @line: line buffer to store the command
- * @line_size: size of the line buffer
+ * @line: Line buffer to be stored command
+ * @size_line: Size of line buffer
  *
- * Return: the number of characters read.
+ * Return: The number of char to read.
  */
-ssize_t read_command(char **line, size_t *line_size)
+ssize_t read_command(char **line, size_t *size_line)
 {
 	write(STDOUT_FILENO, "#cisfun$ ", 9);
-	return (getline(line, line_size, stdin));
+	return (getline(line, size_line, stdin));
 }
-
 /**
  * write_error - Writes an error message to STDERR
- * @index: The execution count
- * @name: The error name
+ *
  * @command: The command
- * Description: Writes an error message.
+ * Description: Writes an error message
  */
-void write_error(char *name, char *command, int index)
+void write_error(char *command)
 {
-	char i[10] = {'\0'};
-
-	if (index == 0)
-		index = 1;
-
-	write(STDERR_FILENO, name, _strlen(name));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, i, _strlen(i));
-	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, "./hsh: 1: ", 10);
 	write(STDERR_FILENO, command, _strlen(command));
 	write(STDERR_FILENO, ": not found\n", 12);
 }
-
 /**
- * write_exit_error - Writes an error message to STDERR.
+ * write_exit_error - Writes an error message to STDERR
  *
- * @number: The number.
- * Description: Writes an error message.
+ * @number: The number
+ * Description: Writes an error message
  */
 void write_exit_error(char *number)
 {
@@ -97,10 +88,9 @@ void write_exit_error(char *number)
 	write(STDERR_FILENO, number, _strlen(number));
 	write(STDERR_FILENO, "\n", 1);
 }
-
 /**
  * free_array - Frees memory allocated for an array of strings
- * @array: A pointer to the dynamically allocated array of strings
+ * @array: Pointer to the allocated array of strings
  */
 void free_array(char **array)
 {

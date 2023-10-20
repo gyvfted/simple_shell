@@ -2,68 +2,68 @@
 
 /**
  * handle_exit_status - Handles the exit status for a command
- * @custom_status:  status to check
- * @cmd_args: command arguments
- * @token: pointer to dynamically allocated memory
- * @exit_status: pointer to an int to hold the exit status value
+ * @my_status: status to be checked
+ * @single_command:  command arguments
+ * @token: A pointer to the allocated memory
+ * @status: A pointer to hold the status value.
  *
  * Return: void.
  */
-void handle_exit_status(int custom_status, char **cmd_args, char **token,
-		int *exit_status)
+void handle_exit_status(int my_status, char **single_command, char **token,
+						int *status)
 {
-	if (custom_status == -1 ||
-		(custom_status == 0 && cmd_args[1][0] != '0') ||
-		custom_status < 0)
+	if (my_status == -1 ||
+		(my_status == 0 && single_command[1][0] != '0') ||
+		my_status < 0)
 	{
-		write_exit_error(cmd_args[1]);
-		*exit_status = 2;
+		write_exit_error(single_command[1]);
+		*status = 2;
 	}
 	else
 	{
 		free(*token);
-		free_array(cmd_args);
-		exit(custom_status);
+		free_array(single_command);
+		exit(my_status);
 	}
 }
 
 /**
- * handle_custom_exit - Handles  exit statuses for a command
- * @custom_status:  exit status to check
- * @cmd_args: array containing the command and its arguments
- * @input_line:  pointer to the input line
- * @exit_status:  pointer to an int to hold the return exit status value
+ * handle_custom_exit - Handles custom exit statuses for a command
+ * @my_status:  exit status to be checked
+ * @commands:  array containing the command and its arguments
+ * @line:  pointer to the input line
+ * @status:  pointer to an int to hold the return status value
  *
  * Return: void.
  */
-void handle_custom_exit(int custom_status, char **cmd_args,
-		char *input_line, int *exit_status)
+void handle_custom_exit(int my_status, char **commands,
+						char *line, int *status)
 {
-	if (custom_status == -1 ||
-		(custom_status == 0 && cmd_args[1][0] != '0') ||
-		custom_status < 0)
+	if (my_status == -1 ||
+		(my_status == 0 && commands[1][0] != '0') ||
+		my_status < 0)
 	{
-		write_exit_error(cmd_args[1]);
-		*exit_status = 2;
+		write_exit_error(commands[1]);
+		*status = 2;
 	}
 	else
 	{
-		free(input_line);
-		free_array(cmd_args);
-		exit(custom_status);
+		free(line);
+		free_array(commands);
+		exit(my_status);
 	}
 }
-
 /**
  * handle_getline_error - Handles getline error
- * @input_line: pointer to the input line.
+ * @line: A pointer to the input line
  *
- * Return: void.
+ * Return: void
  */
-void handle_getline_error(char *input_line)
+void handle_getline_error(char *line)
 {
 	perror("getline");
-	free(input_line);
-	input_line = NULL;
+	free(line);
+	line = NULL;
 	exit(EXIT_FAILURE);
 }
+
