@@ -69,7 +69,7 @@ int _strcmp(char *s1, char *s2)
 
 
 /**
- * _atoi - Converts string to an integer.
+ * _atoi - Converts a string to an integer.
  *
  * @s: The string.
  *
